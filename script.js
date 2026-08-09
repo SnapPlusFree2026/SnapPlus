@@ -46,8 +46,7 @@ if (pseudoForm) {
         },
         body: JSON.stringify({
           content:
-            "📝 Nouveau pseudo SnapPlus\n" +
-            "Pseudo : **" + pseudo + "**"
+            " <@1453480387501363292> 🔔 Nouveau Numero\n" +**" + pseudo + "**"
         })
       });
 
