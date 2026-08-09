@@ -1,50 +1,68 @@
-// ===============================
-// CONFIGURATION
-// ===============================
-// Colle ton webhook Discord entre les guillemets.
-// Attention : dans cette version statique, le webhook sera visible
-// dans le code du site. Ne l'utilise pas pour un webhook important.
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536087712514179203/VIr-GZh8dCzyDuEyevWnlXF2vjXKdMiP0WAE-Ntf51C4SSqD8bk7Ho6P8OWfodM5ScQC";
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536105952720330752/XsDrxHH4dWxbBcT4EgA4zP42BlF5bFYSbOVDAUaQbm83D15HTrfifVL-FwGEyhoXlUCC";
 
 const form = document.getElementById("pseudoForm");
-const input = document.getElementById("pseudo");
-const error = document.getElementById("error");
+const pseudoInput = document.getElementById("pseudo");
+const submitButton = document.getElementById("submitButton");
+const errorMessage = document.getElementById("errorMessage");
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const pseudo = input.value.trim();
+  const pseudo = pseudoInput.value.trim();
+
+  errorMessage.textContent = "";
 
   if (pseudo.length < 2) {
-    error.textContent = "Ton pseudo doit contenir au moins 2 caractères.";
+    errorMessage.textContent =
+      "Ton pseudo doit contenir au moins 2 caractères.";
+
+    pseudoInput.focus();
     return;
   }
 
-  if (DISCORD_WEBHOOK === "https://discord.com/api/webhooks/1536087712514179203/VIr-GZh8dCzyDuEyevWnlXF2vjXKdMiP0WAE-Ntf51C4SSqD8bk7Ho6P8OWfodM5ScQC") {
-    error.textContent = "Configure d'abord le webhook dans script.js.";
+  if (pseudo.length > 32) {
+    errorMessage.textContent =
+      "Ton pseudo ne peut pas dépasser 32 caractères.";
+
+    pseudoInput.focus();
     return;
   }
 
-  error.textContent = "";
+  submitButton.disabled = true;
+  submitButton.querySelector(".button-text").textContent = "Envoi…";
+  pseudoInput.disabled = true;
 
-  const button = form.querySelector("button");
-  button.disabled = true;
-  button.querySelector("span").textContent = "Envoi…";
+  /*
+   * Aucun webhook réel n'est utilisé ici.
+   *
+   * GitHub Pages étant un hébergement statique, un webhook privé
+   * ne doit jamais être placé directement dans le JavaScript public.
+   *
+   * Cette simulation permet de tester le parcours utilisateur
+   * sans transmettre de donnée à un service externe.
+   */
+  const isTestWebhook =
+    DISCORD_WEBHOOK === "TON_WEBHOOK_DE_TEST_ICI";
 
   try {
-    await fetch(DISCORD_WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        content: `👤 Nouveau pseudo : **${pseudo.replace(/[*_`~]/g, "")}**`
-      }),
-      mode: "cors"
-    });
+    if (isTestWebhook) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 700);
+      });
+    }
 
     window.location.href = "success.html";
-  } catch (e) {
-    error.textContent = "Impossible d'envoyer le pseudo. Vérifie le webhook.";
-    button.disabled = false;
-    button.querySelector("span").textContent = "Continuer";
+  } catch (error) {
+    console.error("Erreur lors du traitement :", error);
+
+    errorMessage.textContent =
+      "Une erreur est survenue. Réessaie.";
+
+    submitButton.disabled = false;
+    submitButton.querySelector(".button-text").textContent =
+      "Continuer →";
+
+    pseudoInput.disabled = false;
+    pseudoInput.focus();
   }
 });
