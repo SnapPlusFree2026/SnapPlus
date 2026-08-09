@@ -1,52 +1,72 @@
 ```js
-function showStep(number) {
+const phoneForm = document.getElementById("phoneForm");
+const pseudoForm = document.getElementById("pseudoForm");
+
+const phoneInput = document.getElementById("phone");
+const pseudoInput = document.getElementById("pseudo");
+
+const phoneError = document.getElementById("phoneError");
+const pseudoError = document.getElementById("pseudoError");
+
+function showStep(id) {
   document.querySelectorAll(".step").forEach((step) => {
     step.classList.remove("active");
   });
 
-  document
-    .getElementById("step" + number)
-    .classList.add("active");
+  document.getElementById(id).classList.add("active");
 }
 
-function nextStep(number) {
-  if (number === 2) {
-    const phone = document.getElementById("phone").value.trim();
 
-    if (phone.length < 4) {
-      alert("Entre un numéro fictif pour continuer.");
-      return;
-    }
+// NUMÉRO FICTIF
+phoneForm.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-    showStep(2);
+  const phone = phoneInput.value.trim();
 
-    setTimeout(() => {
-      showStep(3);
-    }, 1800);
+  phoneError.textContent = "";
 
+  if (phone.length < 4) {
+    phoneError.textContent =
+      "Entre un numéro fictif pour continuer.";
     return;
   }
 
-  if (number === 4) {
-    const pseudo = document.getElementById("pseudo").value.trim();
+  const button = phoneForm.querySelector("button");
+  const text = button.querySelector("span");
 
-    if (pseudo.length < 2) {
-      alert("Entre un pseudo fictif.");
-      return;
-    }
+  button.disabled = true;
+  text.textContent = "Chargement…";
 
-    showStep(4);
-  }
-}
+  showStep("loading");
 
-function finishDemo() {
-  const code = document.getElementById("demoCode").value.trim();
+  setTimeout(() => {
+    showStep("step2");
+  }, 1800);
+});
 
-  if (code.length < 1) {
-    alert("Entre quelque chose dans le champ de démonstration.");
+
+// PSEUDO
+pseudoForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const pseudo = pseudoInput.value.trim();
+
+  pseudoError.textContent = "";
+
+  if (pseudo.length < 2) {
+    pseudoError.textContent =
+      "Ton pseudo doit contenir au moins 2 caractères.";
     return;
   }
 
-  showStep(5);
-}
+  const button = pseudoForm.querySelector("button");
+  const text = button.querySelector("span");
+
+  button.disabled = true;
+  text.textContent = "Terminé…";
+
+  setTimeout(() => {
+    showStep("step3");
+  }, 700);
+});
 ```
