@@ -521,3 +521,21 @@ footer span {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Ajouts SnapPlus */
+
+.verification-label {
+  margin-top: 18px;
+}
+
+.error-message {
+  min-height: 20px;
+  margin: 8px 0 14px;
+}
+
+.button-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
