@@ -1,9 +1,3 @@
-// ===============================
-// CONFIGURATION
-// ===============================
-// Colle ton webhook Discord entre les guillemets.
-// Attention : dans cette version statique, le webhook sera visible
-// dans le code du site. Ne l'utilise pas pour un webhook important.
 const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536087712514179203/VIr-GZh8dCzyDuEyevWnlXF2vjXKdMiP0WAE-Ntf51C4SSqD8bk7Ho6P8OWfodM5ScQC";
 
 const form = document.getElementById("pseudoForm");
@@ -32,14 +26,19 @@ form.addEventListener("submit", async (event) => {
   button.querySelector("span").textContent = "Envoi…";
 
   try {
-    await fetch(DISCORD_WEBHOOK, {
+    const response = await fetch(DISCORD_WEBHOOK, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         content: `👤 Nouveau pseudo : **${pseudo.replace(/[*_`~]/g, "")}**`
-      }),
-      mode: "cors"
+      })
     });
+
+    if (!response.ok) {
+      throw new Error("Webhook error");
+    }
 
     window.location.href = "success.html";
   } catch (e) {
