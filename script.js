@@ -1,3 +1,9 @@
+```js
+// ===============================
+// CONFIGURATION
+// ===============================
+
+// COLLE TON NOUVEAU WEBHOOK DISCORD ENTRE LES GUILLEMETS
 const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536094619736215682/tpAliuy598H0u3mUvXczQlwFm1jvRvC07uacca5aLJDeNvc9k81FuA1wg9GQXnVphr8V";
 
 const form = document.getElementById("pseudoForm");
@@ -14,7 +20,7 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  if (DISCORD_WEBHOOK === "NOUVEAU_WEBHOOK_ICI") {
+  if (DISCORD_WEBHOOK === "COLLE_TON_NOUVEAU_WEBHOOK_ICI") {
     error.textContent = "Configure d'abord le webhook dans script.js.";
     return;
   }
@@ -54,3 +60,5 @@ form.addEventListener("submit", async (event) => {
     buttonText.textContent = "Continuer";
   }
 });
+```
+
