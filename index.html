@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenue</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <div class="logo">✦</div>
+    <p class="eyebrow">WELCOME</p>
+    <h1>Choisis ton pseudo</h1>
+    <p class="subtitle">Entre ton pseudo pour continuer.</p>
+
+    <form id="pseudoForm">
+      <label for="pseudo">Pseudo</label>
+      <div class="input-wrap">
+        <span>@</span>
+        <input id="pseudo" name="pseudo" type="text" maxlength="32"
+               placeholder="TonPseudo" autocomplete="off" required>
+      </div>
+      <button type="submit">
+        <span>Continuer</span>
+        <span>→</span>
+      </button>
+      <p id="error" class="error" aria-live="polite"></p>
+    </form>
+
+    <p class="footer">Simple • Rapide • Gratuit</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
