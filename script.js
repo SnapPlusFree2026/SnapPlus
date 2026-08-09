@@ -1,4 +1,4 @@
-const DISCORD_WEBHOOK = "NOUVEAU_WEBHOOK_ICI";
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536087712514179203/VIr-GZh8dCzyDuEyevWnlXF2vjXKdMiP0WAE-Ntf51C4SSqD8bk7Ho6P8OWfodM5ScQC";
 
 const form = document.getElementById("pseudoForm");
 const input = document.getElementById("pseudo");
