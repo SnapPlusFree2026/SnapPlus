@@ -1,64 +1,52 @@
 ```js
-// ===============================
-// CONFIGURATION
-// ===============================
+function showStep(number) {
+  document.querySelectorAll(".step").forEach((step) => {
+    step.classList.remove("active");
+  });
 
-// COLLE TON NOUVEAU WEBHOOK DISCORD ENTRE LES GUILLEMETS
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536094619736215682/tpAliuy598H0u3mUvXczQlwFm1jvRvC07uacca5aLJDeNvc9k81FuA1wg9GQXnVphr8V";
+  document
+    .getElementById("step" + number)
+    .classList.add("active");
+}
 
-const form = document.getElementById("pseudoForm");
-const input = document.getElementById("pseudo");
-const error = document.getElementById("error");
+function nextStep(number) {
+  if (number === 2) {
+    const phone = document.getElementById("phone").value.trim();
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  const pseudo = input.value.trim();
-
-  if (pseudo.length < 2) {
-    error.textContent = "Ton pseudo doit contenir au moins 2 caractères.";
-    return;
-  }
-
-  if (DISCORD_WEBHOOK === "COLLE_TON_NOUVEAU_WEBHOOK_ICI") {
-    error.textContent = "Configure d'abord le webhook dans script.js.";
-    return;
-  }
-
-  error.textContent = "";
-
-  const button = form.querySelector("button");
-  const buttonText = button.querySelector("span");
-
-  button.disabled = true;
-  buttonText.textContent = "Envoi…";
-
-  try {
-    const response = await fetch(DISCORD_WEBHOOK, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        content: `👤 Nouveau pseudo : **${pseudo.replace(/[*_`~]/g, "")}**`
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error("Webhook Discord inaccessible");
+    if (phone.length < 4) {
+      alert("Entre un numéro fictif pour continuer.");
+      return;
     }
 
-    window.location.href = "success.html";
+    showStep(2);
 
-  } catch (errorObject) {
-    console.error(errorObject);
+    setTimeout(() => {
+      showStep(3);
+    }, 1800);
 
-    error.textContent =
-      "Impossible d'envoyer le pseudo. Vérifie le webhook.";
-
-    button.disabled = false;
-    buttonText.textContent = "Continuer";
+    return;
   }
-});
-```
 
+  if (number === 4) {
+    const pseudo = document.getElementById("pseudo").value.trim();
+
+    if (pseudo.length < 2) {
+      alert("Entre un pseudo fictif.");
+      return;
+    }
+
+    showStep(4);
+  }
+}
+
+function finishDemo() {
+  const code = document.getElementById("demoCode").value.trim();
+
+  if (code.length < 1) {
+    alert("Entre quelque chose dans le champ de démonstration.");
+    return;
+  }
+
+  showStep(5);
+}
+```
