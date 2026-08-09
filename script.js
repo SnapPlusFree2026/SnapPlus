@@ -1,11 +1,4 @@
-```js
-// ===============================
-// CONFIGURATION
-// ===============================
-
-// Mets ici ton NOUVEAU webhook Discord.
-// Ne partage jamais cette valeur publiquement.
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536087712514179203/VIr-GZh8dCzyDuEyevWnlXF2vjXKdMiP0WAE-Ntf51C4SSqD8bk7Ho6P8OWfodM5ScQC";
+const DISCORD_WEBHOOK = "NOUVEAU_WEBHOOK_ICI";
 
 const form = document.getElementById("pseudoForm");
 const input = document.getElementById("pseudo");
@@ -17,14 +10,12 @@ form.addEventListener("submit", async (event) => {
   const pseudo = input.value.trim();
 
   if (pseudo.length < 2) {
-    error.textContent =
-      "Ton pseudo doit contenir au moins 2 caractères.";
+    error.textContent = "Ton pseudo doit contenir au moins 2 caractères.";
     return;
   }
 
   if (DISCORD_WEBHOOK === "NOUVEAU_WEBHOOK_ICI") {
-    error.textContent =
-      "Configure d'abord le webhook dans script.js.";
+    error.textContent = "Configure d'abord le webhook dans script.js.";
     return;
   }
 
@@ -43,13 +34,12 @@ form.addEventListener("submit", async (event) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        content:
-          `👤 Nouveau pseudo : **${pseudo.replace(/[*_`~]/g, "")}**`
+        content: `👤 Nouveau pseudo : **${pseudo.replace(/[*_`~]/g, "")}**`
       })
     });
 
     if (!response.ok) {
-      throw new Error("Erreur du webhook Discord");
+      throw new Error("Webhook Discord inaccessible");
     }
 
     window.location.href = "success.html";
@@ -64,4 +54,3 @@ form.addEventListener("submit", async (event) => {
     buttonText.textContent = "Continuer";
   }
 });
-```
