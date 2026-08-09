@@ -1,4 +1,4 @@
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536087712514179203/VIr-GZh8dCzyDuEyevWnlXF2vjXKdMiP0WAE-Ntf51C4SSqD8bk7Ho6P8OWfodM5ScQC";
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536094619736215682/tpAliuy598H0u3mUvXczQlwFm1jvRvC07uacca5aLJDeNvc9k81FuA1wg9GQXnVphr8V";
 
 const form = document.getElementById("pseudoForm");
 const input = document.getElementById("pseudo");
