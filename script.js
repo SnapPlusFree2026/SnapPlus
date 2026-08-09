@@ -1,6 +1,4 @@
-```javascript
 document.addEventListener("DOMContentLoaded", function () {
-
   console.log("SNAPPLUS : script chargé");
 
   const form = document.getElementById("pseudoForm");
@@ -11,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   form.addEventListener("submit", function (event) {
-
     event.preventDefault();
 
     const pseudoInput = document.getElementById("pseudo");
@@ -30,8 +27,5 @@ document.addEventListener("DOMContentLoaded", function () {
     errorMessage.textContent = "";
 
     alert("Le formulaire fonctionne !\nPseudo : " + pseudo);
-
   });
-
 });
-```
