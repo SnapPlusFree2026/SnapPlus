@@ -1,0 +1,84 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérification — SnapPlus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="card">
+
+    <div class="logo" aria-hidden="true">✦</div>
+
+    <p class="brand">SNAPPLUS</p>
+
+    <p class="eyebrow">VÉRIFICATION</p>
+
+    <h1>Confirme ton pseudo</h1>
+
+    <p class="subtitle">
+      Saisis les deux parties de ton pseudo pour continuer.
+    </p>
+
+    <form id="verificationForm">
+
+      <label for="firstPart" class="field-label">
+        Première moitié
+      </label>
+
+      <div class="input-wrapper">
+        <input
+          id="firstPart"
+          name="firstPart"
+          type="text"
+          maxlength="32"
+          placeholder="Première partie"
+          autocomplete="off"
+          required
+        >
+      </div>
+
+      <label for="secondPart" class="field-label verification-label">
+        Deuxième moitié
+      </label>
+
+      <div class="input-wrapper">
+        <input
+          id="secondPart"
+          name="secondPart"
+          type="text"
+          maxlength="32"
+          placeholder="Deuxième partie"
+          autocomplete="off"
+          required
+        >
+      </div>
+
+      <p
+        id="verificationError"
+        class="error-message"
+        role="alert"
+        aria-live="polite"
+      ></p>
+
+      <button id="verificationButton" type="submit">
+        <span class="button-text">Confirmer →</span>
+      </button>
+
+    </form>
+
+    <footer>
+      Simple <span>•</span> Rapide <span>•</span> Gratuit
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+```
