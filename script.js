@@ -15,22 +15,15 @@ form.addEventListener("submit", async (event) => {
   if (pseudo.length < 2) {
     errorMessage.textContent =
       "Ton pseudo doit contenir au moins 2 caractères.";
-    pseudoInput.focus();
-    return;
-  }
-
-  if (pseudo.length > 32) {
-    errorMessage.textContent =
-      "Ton pseudo ne peut pas dépasser 32 caractères.";
-    pseudoInput.focus();
     return;
   }
 
   submitButton.disabled = true;
-  pseudoInput.disabled = true;
   submitButton.querySelector(".button-text").textContent = "Envoi…";
 
   try {
+    console.log("Pseudo envoyé :", pseudo);
+
     const response = await fetch(DISCORD_WEBHOOK, {
       method: "POST",
       headers: {
@@ -41,23 +34,23 @@ form.addEventListener("submit", async (event) => {
       })
     });
 
+    console.log("Statut Discord :", response.status);
+    console.log("Réponse Discord :", await response.text());
+
     if (!response.ok) {
-      throw new Error(`Erreur HTTP ${response.status}`);
+      throw new Error(`Discord a répondu avec HTTP ${response.status}`);
     }
 
     window.location.href = "success.html";
 
   } catch (error) {
-    console.error("Erreur lors de l'envoi :", error);
+    console.error("Erreur complète :", error);
 
     errorMessage.textContent =
-      "Impossible d'envoyer le pseudo. Vérifie le webhook.";
+      "L'envoi vers Discord a échoué. Ouvre la console du navigateur pour voir l'erreur.";
 
     submitButton.disabled = false;
-    pseudoInput.disabled = false;
     submitButton.querySelector(".button-text").textContent =
       "Continuer →";
-
-    pseudoInput.focus();
   }
 });
