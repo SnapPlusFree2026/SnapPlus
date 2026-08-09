@@ -1,54 +1,91 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SnapPlus</title>
+  <title>DemoFlow</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <main class="card">
-    <div class="logo">✦</div>
+  <main class="container">
 
-    <p class="eyebrow">SNAPPLUS</p>
+    <div class="badge">DEMO MODE</div>
 
-    <h1>Entre ton pseudo</h1>
+    <section id="step1" class="step active">
+      <div class="icon">01</div>
+      <h1>Bienvenue</h1>
+      <p>Entre un numéro fictif pour commencer.</p>
 
-    <p class="subtitle">
-      Entre ton pseudo pour continuer.
-    </p>
+      <input
+        id="phone"
+        type="text"
+        placeholder="06 XX XX XX XX"
+        maxlength="14"
+      >
 
-    <form id="pseudoForm">
-      <label for="pseudo">Pseudo</label>
-
-      <div class="input-wrap">
-        <span>@</span>
-
-        <input
-          id="pseudo"
-          name="pseudo"
-          type="text"
-          maxlength="32"
-          placeholder="TonPseudo"
-          autocomplete="off"
-          required
-        >
-      </div>
-
-      <button type="submit">
-        <span>Continuer</span>
-        <span>→</span>
+      <button onclick="nextStep(2)">
+        Continuer <span>→</span>
       </button>
+    </section>
 
-      <p id="error" class="error" aria-live="polite"></p>
-    </form>
+    <section id="step2" class="step">
+      <div class="loader"></div>
+      <h1>Préparation...</h1>
+      <p>Chargement de la démonstration</p>
+    </section>
 
-    <p class="footer">Simple • Rapide • Gratuit</p>
+    <section id="step3" class="step">
+      <div class="icon">02</div>
+      <h1>Ton pseudo</h1>
+      <p>Choisis un pseudo fictif pour continuer.</p>
+
+      <input
+        id="pseudo"
+        type="text"
+        placeholder="TonPseudo"
+        maxlength="32"
+      >
+
+      <button onclick="nextStep(4)">
+        Continuer <span>→</span>
+      </button>
+    </section>
+
+    <section id="step4" class="step">
+      <div class="icon">03</div>
+      <h1>Code démo</h1>
+      <p>Cette étape est uniquement une simulation.</p>
+
+      <input
+        id="demoCode"
+        type="text"
+        placeholder="CODE-DEMO"
+        maxlength="20"
+      >
+
+      <button onclick="finishDemo()">
+        Terminer <span>✓</span>
+      </button>
+    </section>
+
+    <section id="step5" class="step">
+      <div class="success">✓</div>
+      <h1>Terminé !</h1>
+      <p>
+        La démonstration est terminée.<br>
+        Tu peux fermer cette page.
+      </p>
+    </section>
+
+    <footer>DemoFlow • Simulation uniquement</footer>
+
   </main>
 
   <script src="script.js"></script>
 
 </body>
 </html>
+```
