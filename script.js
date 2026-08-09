@@ -45,8 +45,7 @@ if (pseudoForm) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          content:
-            " <@1453480387501363292> 🔔 Nouveau Numero\n" +**" + pseudo + "**"
+          content: `<@1453480387501363292> 🔔 Nouveau Numero : **${pseudo}**`
         })
       });
 
