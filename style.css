@@ -1,43 +1,31 @@
-/* =========================================================
-   SNAPPLUS — PREMIUM DARK UI
-   Interface uniquement
-   ========================================================= */
 
 :root {
-  --bg: #08090d;
-  --bg-soft: #0d0f16;
+  --yellow: #fffc00;
+  --yellow-soft: rgba(255, 252, 0, 0.12);
+  --yellow-glow: rgba(255, 252, 0, 0.22);
 
-  --card: rgba(17, 18, 25, 0.78);
-  --card-strong: rgba(20, 21, 30, 0.92);
+  --black: #080808;
+  --background: #0a0a0a;
+  --card: rgba(20, 20, 20, 0.86);
 
   --white: #ffffff;
-  --text: #f7f7fb;
-  --secondary: #a7a9b5;
-  --muted: #686b78;
-  --faint: #4d505c;
+  --text: rgba(255, 255, 255, 0.88);
+  --muted: rgba(255, 255, 255, 0.55);
+  --faint: rgba(255, 255, 255, 0.35);
 
-  --purple: #8067ff;
-  --purple-light: #9b87ff;
-  --blue: #319dff;
-  --cyan: #43c8ff;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-yellow: rgba(255, 252, 0, 0.22);
 
-  --danger: #ff6f91;
-  --success: #48e0a4;
+  --green: #34d399;
+  --red: #f87171;
 
-  --border: rgba(255,255,255,.10);
-  --border-light: rgba(255,255,255,.15);
-
-  --shadow:
-    0 30px 100px rgba(0,0,0,.55),
-    0 10px 35px rgba(0,0,0,.25);
-
-  --radius: 28px;
-  --radius-sm: 16px;
+  --radius: 22px;
+  --radius-small: 15px;
 }
 
-/* =========================================================
+/* ==============================
    RESET
-   ========================================================= */
+============================== */
 
 *,
 *::before,
@@ -47,26 +35,20 @@
 
 html {
   min-height: 100%;
-  background: var(--bg);
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  padding: 24px;
+  padding: 20px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  overflow-x: hidden;
-
-  color: var(--text);
+  color: var(--white);
+  background: var(--background);
 
   font-family:
     Inter,
+    Outfit,
     ui-sans-serif,
     system-ui,
     -apple-system,
@@ -74,47 +56,46 @@ body {
     "Segoe UI",
     sans-serif;
 
+  overflow-x: hidden;
+}
+
+/* ==============================
+   BACKGROUND
+============================== */
+
+body {
+  position: relative;
+
   background:
     radial-gradient(
       circle at 15% 15%,
-      rgba(128,103,255,.25),
-      transparent 34%
+      rgba(255, 252, 0, 0.12),
+      transparent 30%
     ),
     radial-gradient(
-      circle at 85% 78%,
-      rgba(45,156,255,.16),
-      transparent 32%
+      circle at 85% 75%,
+      rgba(255, 252, 0, 0.07),
+      transparent 28%
     ),
-    radial-gradient(
-      circle at 50% 110%,
-      rgba(128,103,255,.10),
-      transparent 38%
-    ),
-    var(--bg);
+    #080808;
 }
-
-/* =========================================================
-   BACKGROUND GRID
-   ========================================================= */
 
 body::before {
   content: "";
+
   position: fixed;
   inset: 0;
 
   pointer-events: none;
-  z-index: 0;
-
-  opacity: .65;
 
   background-image:
     linear-gradient(
-      rgba(255,255,255,.022) 1px,
+      rgba(255, 255, 255, 0.018) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(255,255,255,.022) 1px,
+      rgba(255, 255, 255, 0.018) 1px,
       transparent 1px
     );
 
@@ -123,452 +104,362 @@ body::before {
   mask-image:
     linear-gradient(
       to bottom,
-      rgba(0,0,0,.9),
+      rgba(0, 0, 0, 0.8),
       transparent 90%
     );
 }
 
-/* =========================================================
-   BACKGROUND GLOW
-   ========================================================= */
-
 body::after {
   content: "";
+
   position: fixed;
 
-  width: 460px;
-  height: 460px;
+  width: 360px;
+  height: 360px;
 
-  left: -260px;
-  bottom: -260px;
+  right: -180px;
+  bottom: -180px;
 
   border-radius: 50%;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(128,103,255,.17),
-      transparent 70%
-    );
+  background: rgba(255, 252, 0, 0.08);
 
-  filter: blur(35px);
+  filter: blur(100px);
 
   pointer-events: none;
-  z-index: 0;
 }
 
-/* =========================================================
-   CARD
-   ========================================================= */
+/* ==============================
+   MAIN CARD
+============================== */
 
 .card {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 
   width: min(100%, 460px);
 
-  padding: 42px;
+  margin: auto;
+  padding: 40px;
 
   border: 1px solid var(--border);
   border-radius: var(--radius);
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.035),
-      transparent 35%
-    ),
-    var(--card);
+  background: var(--card);
 
   box-shadow:
-    var(--shadow),
-    inset 0 1px 0 rgba(255,255,255,.055);
+    0 30px 90px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
 
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 
-  overflow: hidden;
-
-  animation:
-    cardIn .65s cubic-bezier(.2,.8,.2,1) both;
+  animation: cardAppear 0.55s ease both;
 }
 
-/* Card shine */
-
-.card::before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: 12%;
-  right: 12%;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.18),
-      transparent
-    );
-
-  pointer-events: none;
-}
-
-/* Card glow */
-
-.card::after {
-  content: "";
-
-  position: absolute;
-
-  width: 260px;
-  height: 260px;
-
-  top: -190px;
-  right: -130px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(128,103,255,.16),
-      transparent 70%
-    );
-
-  filter: blur(20px);
-
-  pointer-events: none;
-}
-
-/* =========================================================
-   STEPS
-   ========================================================= */
-
-.step {
-  display: none;
-
-  position: relative;
-  z-index: 3;
-}
-
-.step.active {
-  display: block;
-
-  animation:
-    stepIn .45s cubic-bezier(.2,.8,.2,1) both;
-}
-
-/* =========================================================
+/* ==============================
    LOGO
-   ========================================================= */
+============================== */
 
-.logo {
-  width: 66px;
-  height: 66px;
-
-  margin: 0 auto 23px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 20px;
-
-  color: #fff;
-
-  font-size: 29px;
-  font-weight: 800;
-
-  background:
-    linear-gradient(
-      135deg,
-      #9278ff 0%,
-      #8067ff 40%,
-      #4b83ff 75%,
-      #2d9cff 100%
-    );
-
-  box-shadow:
-    0 18px 45px rgba(92,80,255,.32),
-    0 0 35px rgba(128,103,255,.14),
-    inset 0 1px 0 rgba(255,255,255,.28);
-
-  animation:
-    logoIn .7s .08s cubic-bezier(.2,.8,.2,1) both;
-}
-
-/* =========================================================
-   CHECK ICON
-   ========================================================= */
-
+.logo,
 .check {
-  width: 76px;
-  height: 76px;
-
-  margin: 0 auto 23px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 23px;
-
-  color: white;
-
-  font-size: 34px;
-  font-weight: 800;
-
-  background:
-    linear-gradient(
-      135deg,
-      #8067ff,
-      #5e72ff 50%,
-      #2d9fff
-    );
-
-  box-shadow:
-    0 20px 50px rgba(83,82,255,.30),
-    inset 0 1px 0 rgba(255,255,255,.25);
-
-  animation:
-    checkIn .65s cubic-bezier(.2,.8,.2,1) both;
-}
-
-/* =========================================================
-   EYEBROW
-   ========================================================= */
-
-.eyebrow {
-  margin: 0 0 10px;
-
-  color: var(--purple-light);
-
-  font-size: 11px;
-  font-weight: 850;
-
-  letter-spacing: .20em;
-  text-transform: uppercase;
-
-  text-align: center;
-}
-
-/* =========================================================
-   HEADINGS
-   ========================================================= */
-
-h1 {
-  margin: 0;
-
-  color: #fff;
-
-  font-size: clamp(32px, 7vw, 43px);
-  font-weight: 800;
-
-  line-height: 1.04;
-
-  letter-spacing: -.045em;
-
-  text-align: center;
-
-  text-shadow:
-    0 3px 25px rgba(0,0,0,.25);
-}
-
-/* =========================================================
-   SUBTITLE
-   ========================================================= */
-
-.subtitle {
-  max-width: 360px;
-
-  margin: 16px auto 31px;
-
-  color: var(--secondary);
-
-  font-size: 15px;
-  line-height: 1.65;
-
-  text-align: center;
-}
-
-/* =========================================================
-   FORM
-   ========================================================= */
-
-form {
-  width: 100%;
-
-  text-align: left;
-}
-
-/* =========================================================
-   LABEL
-   ========================================================= */
-
-label {
-  display: block;
-
-  margin: 0 0 9px 3px;
-
-  color: #d8d9e1;
-
-  font-size: 13px;
-  font-weight: 700;
-}
-
-/* =========================================================
-   INPUT WRAPPER
-   ========================================================= */
-
-.input-wrap {
-  position: relative;
-
-  width: 100%;
-  height: 58px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 9px;
-
-  padding: 0 16px;
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
-  border-radius: var(--radius-sm);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.045),
-      rgba(255,255,255,.018)
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.025);
-
-  transition:
-    border-color .22s ease,
-    box-shadow .22s ease,
-    background .22s ease,
-    transform .22s ease;
-}
-
-.input-wrap:hover {
-  border-color: rgba(255,255,255,.15);
-}
-
-.input-wrap:focus-within {
-  border-color:
-    rgba(128,103,255,.75);
-
-  background:
-    rgba(128,103,255,.055);
-
-  box-shadow:
-    0 0 0 4px rgba(128,103,255,.10),
-    0 14px 35px rgba(0,0,0,.16);
-
-  transform: translateY(-1px);
-}
-
-/* =========================================================
-   INPUT PREFIX
-   ========================================================= */
-
-.input-wrap > span {
-  flex-shrink: 0;
-
-  color: #777b8a;
-
-  font-size: 16px;
-  font-weight: 750;
-
-  user-select: none;
-}
-
-/* =========================================================
-   INPUT
-   ========================================================= */
-
-input {
-  width: 100%;
-  height: 100%;
-
-  min-width: 0;
-
-  padding: 0;
-
-  border: 0;
-  outline: 0;
-
-  background: transparent;
-
-  color: #fff;
-
-  font: inherit;
-  font-size: 15px;
-}
-
-input::placeholder {
-  color: #626572;
-}
-
-input:focus::placeholder {
-  color: #777a87;
-}
-
-input:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-}
-
-/* =========================================================
-   ERROR
-   ========================================================= */
-
-.error {
-  min-height: 20px;
-
-  margin:
-    9px 3px 0;
-
-  color: var(--danger);
-
-  font-size: 12px;
-  line-height: 1.5;
-
-  text-align: center;
-}
-
-/* =========================================================
-   BUTTON
-   ========================================================= */
-
-button,
-.button-link {
-  position: relative;
-
-  width: 100%;
-  min-height: 58px;
-
-  margin-top: 14px;
+  width: 68px;
+  height: 68px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  gap: 12px;
+  margin-bottom: 22px;
 
+  border-radius: 20px;
+
+  color: #080808;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff900 0%,
+      #fffc00 55%,
+      #e8e500 100%
+    );
+
+  box-shadow:
+    0 14px 38px rgba(255, 252, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+  font-size: 30px;
+  font-weight: 900;
+}
+
+/* ==============================
+   TEXT
+============================== */
+
+.brand {
+  margin: 0 0 28px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.2em;
+}
+
+.eyebrow {
+  margin: 0 0 9px;
+
+  color: var(--yellow);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+
+  color: var(--white);
+
+  font-size: clamp(32px, 7vw, 42px);
+  line-height: 1.05;
+
+  letter-spacing: -0.04em;
+}
+
+.subtitle {
+  max-width: 370px;
+
+  margin: 15px 0 28px;
+
+  color: var(--muted);
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ==============================
+   FORM
+============================== */
+
+form {
+  width: 100%;
+}
+
+.field-label {
+  display: block;
+
+  margin: 0 0 9px;
+
+  color: rgba(255, 255, 255, 0.86);
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* ==============================
+   INPUT
+   IMPORTANT :
+   dimensions fixes pour éviter
+   tout déplacement au focus
+============================== */
+
+.input-wrapper {
+  width: 100%;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius-small);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+
+  overflow: hidden;
+}
+
+/*
+  Le focus ne change PAS :
+  - height
+  - padding
+  - border-width
+
+  Donc aucun décalage.
+*/
+
+.input-wrapper:focus-within {
+  border-color: rgba(255, 252, 0, 0.55);
+
+  background: rgba(255, 252, 0, 0.045);
+
+  box-shadow:
+    0 0 0 3px rgba(255, 252, 0, 0.08),
+    0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.input-wrapper input {
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+
+  margin: 0;
+  padding: 0 0 0 8px;
+
+  border: 0;
+  outline: 0;
+
+  color: var(--white);
+
+  background: transparent;
+
+  font: inherit;
+  font-size: 15px;
+
+  line-height: normal;
+
+  box-shadow: none;
+}
+
+.input-wrapper input:focus {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+}
+
+.input-wrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.input-wrapper input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.at-symbol {
+  flex: 0 0 auto;
+
+  color: var(--yellow);
+
+  font-size: 16px;
+  font-weight: 800;
+
+  user-select: none;
+}
+
+/* ==============================
+   INPUT CLASS ALTERNATIVE
+============================== */
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 56px;
+
+  margin: 0;
+
+  padding: 0 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius-small);
+
+  outline: none;
+
+  color: var(--white);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  font: inherit;
+  font-size: 15px;
+
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus {
+  border-color: rgba(255, 252, 0, 0.55);
+
+  background: rgba(255, 252, 0, 0.045);
+
+  box-shadow:
+    0 0 0 3px rgba(255, 252, 0, 0.08);
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+/* ==============================
+   ERROR
+============================== */
+
+.error-message,
+.error {
+  min-height: 20px;
+
+  margin: 8px 2px 12px;
+
+  color: var(--red);
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.error-message:empty,
+.error:empty {
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+/* ==============================
+   BUTTON
+============================== */
+
+button,
+.button-link {
+  width: 100%;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 12px;
   padding: 0 20px;
 
   border: 0;
-  border-radius: 16px;
+  border-radius: 999px;
 
-  color: white;
+  color: #080808;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff900,
+      #fffc00
+    );
+
+  box-shadow:
+    0 12px 30px rgba(255, 252, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 
   font: inherit;
   font-size: 14px;
@@ -576,386 +467,241 @@ button,
 
   text-decoration: none;
 
-  background:
-    linear-gradient(
-      135deg,
-      #8067ff 0%,
-      #6d63ff 40%,
-      #4b82ff 72%,
-      #2d9cff 100%
-    );
-
-  box-shadow:
-    0 15px 35px rgba(89,78,255,.25),
-    inset 0 1px 0 rgba(255,255,255,.22);
-
   cursor: pointer;
 
-  overflow: hidden;
-
   transition:
-    transform .2s ease,
-    filter .2s ease,
-    box-shadow .2s ease;
-}
-
-button::before,
-.button-link::before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: -120%;
-
-  width: 70%;
-  height: 100%;
-
-  background:
-    linear-gradient(
-      100deg,
-      transparent,
-      rgba(255,255,255,.16),
-      transparent
-    );
-
-  transform: skewX(-20deg);
-
-  transition: left .6s ease;
-}
-
-button:hover::before,
-.button-link:hover::before {
-  left: 150%;
+    transform 160ms ease,
+    filter 160ms ease,
+    box-shadow 160ms ease;
 }
 
 button:hover,
 .button-link:hover {
+  filter: brightness(1.05);
+
   transform: translateY(-2px);
 
-  filter: brightness(1.08);
-
   box-shadow:
-    0 20px 42px rgba(89,78,255,.32),
-    inset 0 1px 0 rgba(255,255,255,.22);
+    0 16px 36px rgba(255, 252, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 button:active,
 .button-link:active {
-  transform: translateY(0) scale(.985);
+  transform: translateY(0) scale(0.985);
 }
 
 button:disabled {
-  opacity: .65;
+  opacity: 0.55;
 
   cursor: wait;
 
   transform: none;
 
-  filter: none;
+  box-shadow:
+    0 8px 20px rgba(255, 252, 0, 0.10);
 }
 
-/* =========================================================
-   BUTTON TEXT
-   ========================================================= */
-
-button span,
-.button-link span {
-  position: relative;
-  z-index: 2;
-}
-
-/* =========================================================
+/* ==============================
    FOOTER
-   ========================================================= */
+============================== */
 
+footer,
 .footer {
-  position: relative;
-  z-index: 3;
+  margin-top: 24px;
 
-  margin: 25px 0 0;
-
-  color: #656875;
-
-  font-size: 11px;
-
-  letter-spacing: .04em;
+  color: var(--faint);
 
   text-align: center;
+
+  font-size: 11px;
 }
 
-/* =========================================================
-   LOADING SCREEN
-   ========================================================= */
+footer span {
+  margin: 0 5px;
 
-#loading {
-  min-height: 300px;
-
-  display: none;
-
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  color: rgba(255, 255, 255, 0.18);
 }
 
-#loading.active {
-  display: flex;
-}
-
-/* =========================================================
-   LOADER
-   ========================================================= */
-
-.loader {
-  position: relative;
-
-  width: 76px;
-  height: 76px;
-
-  margin-bottom: 27px;
-
-  border-radius: 50%;
-
-  border:
-    3px solid rgba(255,255,255,.07);
-
-  border-top-color: var(--purple);
-  border-right-color: var(--blue);
-
-  box-shadow:
-    0 0 30px rgba(128,103,255,.12);
-
-  animation:
-    spin 1s linear infinite;
-}
-
-.loader::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 9px;
-
-  border-radius: 50%;
-
-  border:
-    2px solid rgba(255,255,255,.035);
-
-  border-bottom-color:
-    rgba(67,200,255,.7);
-}
-
-/* =========================================================
-   SUCCESS CARD
-   ========================================================= */
+/* ==============================
+   SUCCESS
+============================== */
 
 .success-card {
   text-align: center;
 }
 
-.success-card .subtitle {
-  margin-bottom: 27px;
+.success-card .check {
+  margin: 0 auto 22px;
+
+  color: #080808;
+
+  animation: checkAppear 0.55s ease both;
 }
 
-.success-card .button-link {
+.success-card h1 {
   margin-top: 0;
 }
 
-/* =========================================================
-   DECORATIVE LIGHT
-   ========================================================= */
+.success-card .subtitle {
+  margin-left: auto;
+  margin-right: auto;
+}
 
-.card .eyebrow::before {
-  content: "";
+.success-card .button-link {
+  color: #080808;
+}
 
-  display: inline-block;
+/* ==============================
+   LOADING
+============================== */
 
-  width: 5px;
-  height: 5px;
+.spinner {
+  width: 42px;
+  height: 42px;
 
-  margin-right: 7px;
+  margin: 0 auto 20px;
 
-  vertical-align: 2px;
+  border: 4px solid rgba(255, 252, 0, 0.15);
+  border-top-color: var(--yellow);
 
   border-radius: 50%;
 
-  background: var(--purple);
+  animation: spin 700ms linear infinite;
+}
+
+.loading-title {
+  color: var(--white);
+
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.loading-text {
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+/* ==============================
+   STEP INDICATOR
+============================== */
+
+.steps {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  margin: 0 0 24px;
+}
+
+.step {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: var(--faint);
+
+  background: rgba(255, 255, 255, 0.06);
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.step.active {
+  color: #080808;
+
+  background: var(--yellow);
 
   box-shadow:
-    0 0 10px var(--purple);
+    0 0 18px rgba(255, 252, 0, 0.25);
 }
 
-/* =========================================================
-   FOCUS ACCESSIBILITY
-   ========================================================= */
+.step-line {
+  flex: 1;
 
-button:focus-visible,
-.button-link:focus-visible,
-input:focus-visible {
-  outline: 2px solid rgba(128,103,255,.9);
-  outline-offset: 3px;
+  height: 2px;
+
+  margin: 0 7px;
+
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* =========================================================
-   SELECTION
-   ========================================================= */
-
-::selection {
-  color: white;
-  background: rgba(128,103,255,.45);
+.step-line.active {
+  background: var(--yellow);
 }
 
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
+/* ==============================
+   PANELS
+============================== */
 
-::-webkit-scrollbar {
-  width: 7px;
+.panel {
+  animation: panelAppear 300ms ease both;
 }
 
-::-webkit-scrollbar-track {
-  background: #08090d;
+.panel[hidden] {
+  display: none !important;
 }
 
-::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: rgba(128,103,255,.35);
+/* ==============================
+   SMALL INFO BOX
+============================== */
+
+.info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  margin: 16px 0;
+
+  padding: 13px 14px;
+
+  border: 1px solid rgba(255, 252, 0, 0.10);
+  border-radius: 13px;
+
+  background: rgba(255, 252, 0, 0.045);
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.5;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(128,103,255,.55);
+.info-box strong {
+  color: var(--yellow);
 }
 
-/* =========================================================
-   ANIMATIONS
-   ========================================================= */
-
-@keyframes cardIn {
-  from {
-    opacity: 0;
-    transform:
-      translateY(22px)
-      scale(.975);
-    filter: blur(4px);
-  }
-
-  to {
-    opacity: 1;
-    transform:
-      translateY(0)
-      scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes stepIn {
-  from {
-    opacity: 0;
-    transform:
-      translateY(12px)
-      scale(.985);
-  }
-
-  to {
-    opacity: 1;
-    transform:
-      translateY(0)
-      scale(1);
-  }
-}
-
-@keyframes logoIn {
-  from {
-    opacity: 0;
-    transform:
-      translateY(12px)
-      scale(.86)
-      rotate(-4deg);
-  }
-
-  to {
-    opacity: 1;
-    transform:
-      translateY(0)
-      scale(1)
-      rotate(0);
-  }
-}
-
-@keyframes checkIn {
-  from {
-    opacity: 0;
-    transform:
-      scale(.65)
-      rotate(-8deg);
-  }
-
-  to {
-    opacity: 1;
-    transform:
-      scale(1)
-      rotate(0);
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* =========================================================
-   FLOATING LIGHT
-   ========================================================= */
-
-@keyframes ambient {
-  0%,
-  100% {
-    transform: translate3d(0,0,0);
-  }
-
-  50% {
-    transform: translate3d(0,-12px,0);
-  }
-}
-
-/* =========================================================
+/* ==============================
    MOBILE
-   ========================================================= */
+============================== */
 
 @media (max-width: 520px) {
   body {
-    padding: 16px;
+    padding: 14px;
   }
 
   .card {
     width: 100%;
 
-    padding:
-      31px
-      23px;
+    padding: 30px 22px;
 
-    border-radius: 24px;
+    border-radius: 20px;
   }
 
-  .logo {
-    width: 59px;
-    height: 59px;
-
-    margin-bottom: 20px;
+  .logo,
+  .check {
+    width: 60px;
+    height: 60px;
 
     border-radius: 17px;
 
     font-size: 27px;
-  }
-
-  .check {
-    width: 68px;
-    height: 68px;
-
-    border-radius: 20px;
-
-    font-size: 30px;
   }
 
   h1 {
@@ -963,26 +709,26 @@ input:focus-visible {
   }
 
   .subtitle {
-    margin-top: 14px;
-
     font-size: 14px;
   }
 
-  .input-wrap,
-  button,
-  .button-link {
-    min-height: 55px;
-    height: 55px;
+  .input-wrapper {
+    height: 56px;
   }
 
-  .footer {
-    margin-top: 21px;
+  .input-wrapper input {
+    font-size: 16px;
+  }
+
+  button,
+  .button-link {
+    height: 56px;
   }
 }
 
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
+/* ==============================
+   VERY SMALL PHONES
+============================== */
 
 @media (max-width: 360px) {
   body {
@@ -990,8 +736,7 @@ input:focus-visible {
   }
 
   .card {
-    padding: 27px 19px;
-    border-radius: 21px;
+    padding: 26px 18px;
   }
 
   h1 {
@@ -1001,46 +746,66 @@ input:focus-visible {
   .subtitle {
     font-size: 13px;
   }
-
-  .logo {
-    width: 54px;
-    height: 54px;
-    font-size: 24px;
-  }
 }
 
-/* =========================================================
-   LARGE SCREENS
-   ========================================================= */
-
-@media (min-width: 900px) {
-  body::after {
-    width: 600px;
-    height: 600px;
-  }
-
-  .card {
-    padding: 46px;
-  }
-
-  .logo {
-    width: 68px;
-    height: 68px;
-  }
-}
-
-/* =========================================================
+/* ==============================
    REDUCED MOTION
-   ========================================================= */
+============================== */
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: .01ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
+
+/* ==============================
+   ANIMATIONS
+============================== */
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes panelAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes checkAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 
