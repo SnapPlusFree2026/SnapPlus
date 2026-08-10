@@ -1,21 +1,54 @@
+/* =========================================================
+   SNAPPLUS — PREMIUM DARK UI
+   Interface uniquement
+   ========================================================= */
+
 :root {
-  --background: #08090d;
-  --card-background: rgba(17, 18, 25, 0.78);
+  --bg: #08090d;
+  --bg-soft: #0d0f16;
+
+  --card: rgba(17, 18, 25, 0.78);
+  --card-strong: rgba(20, 21, 30, 0.92);
+
   --white: #ffffff;
-  --text-secondary: #9295a3;
-  --text-muted: #686b78;
-  --accent: #8067ff;
-  --accent-blue: #2d9cff;
-  --error: #ff6f91;
-  --border: rgba(255, 255, 255, 0.11);
+  --text: #f7f7fb;
+  --secondary: #a7a9b5;
+  --muted: #686b78;
+  --faint: #4d505c;
+
+  --purple: #8067ff;
+  --purple-light: #9b87ff;
+  --blue: #319dff;
+  --cyan: #43c8ff;
+
+  --danger: #ff6f91;
+  --success: #48e0a4;
+
+  --border: rgba(255,255,255,.10);
+  --border-light: rgba(255,255,255,.15);
+
+  --shadow:
+    0 30px 100px rgba(0,0,0,.55),
+    0 10px 35px rgba(0,0,0,.25);
+
+  --radius: 28px;
+  --radius-sm: 16px;
 }
 
-* {
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   min-height: 100%;
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -30,7 +63,8 @@ body {
   position: relative;
   overflow-x: hidden;
 
-  color: var(--white);
+  color: var(--text);
+
   font-family:
     Inter,
     ui-sans-serif,
@@ -42,19 +76,26 @@ body {
 
   background:
     radial-gradient(
-      circle at 20% 20%,
-      rgba(124, 92, 255, 0.28),
+      circle at 15% 15%,
+      rgba(128,103,255,.25),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 85% 78%,
+      rgba(45,156,255,.16),
       transparent 32%
     ),
     radial-gradient(
-      circle at 80% 75%,
-      rgba(0, 210, 255, 0.16),
-      transparent 30%
+      circle at 50% 110%,
+      rgba(128,103,255,.10),
+      transparent 38%
     ),
-    #08090d;
+    var(--bg);
 }
 
-/* Grille discrète */
+/* =========================================================
+   BACKGROUND GRID
+   ========================================================= */
 
 body::before {
   content: "";
@@ -62,259 +103,467 @@ body::before {
   inset: 0;
 
   pointer-events: none;
+  z-index: 0;
 
-  opacity: 0.18;
+  opacity: .65;
 
   background-image:
     linear-gradient(
-      rgba(255, 255, 255, 0.025) 1px,
+      rgba(255,255,255,.022) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.025) 1px,
+      rgba(255,255,255,.022) 1px,
       transparent 1px
     );
 
   background-size: 42px 42px;
 
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.8),
-    transparent 85%
-  );
+  mask-image:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.9),
+      transparent 90%
+    );
 }
 
-/* Halos supplémentaires */
+/* =========================================================
+   BACKGROUND GLOW
+   ========================================================= */
 
 body::after {
   content: "";
   position: fixed;
 
-  width: 420px;
-  height: 420px;
+  width: 460px;
+  height: 460px;
 
-  left: -220px;
-  bottom: -220px;
+  left: -260px;
+  bottom: -260px;
 
   border-radius: 50%;
 
-  background: rgba(128, 103, 255, 0.12);
-  filter: blur(100px);
+  background:
+    radial-gradient(
+      circle,
+      rgba(128,103,255,.17),
+      transparent 70%
+    );
+
+  filter: blur(35px);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card {
+  position: relative;
+  z-index: 2;
+
+  width: min(100%, 460px);
+
+  padding: 42px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.035),
+      transparent 35%
+    ),
+    var(--card);
+
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 rgba(255,255,255,.055);
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  overflow: hidden;
+
+  animation:
+    cardIn .65s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* Card shine */
+
+.card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 12%;
+  right: 12%;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.18),
+      transparent
+    );
 
   pointer-events: none;
 }
 
-/* Carte principale */
+/* Card glow */
 
-.card {
-  position: relative;
-  z-index: 1;
+.card::after {
+  content: "";
 
-  width: min(100%, 460px);
-  padding: 42px;
+  position: absolute;
 
-  border: 1px solid var(--border);
-  border-radius: 28px;
+  width: 260px;
+  height: 260px;
 
-  background: var(--card-background);
+  top: -190px;
+  right: -130px;
 
-  box-shadow:
-    0 30px 90px rgba(0, 0, 0, 0.48),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
 
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  background:
+    radial-gradient(
+      circle,
+      rgba(128,103,255,.16),
+      transparent 70%
+    );
 
-  animation: cardAppear 0.7s ease-out both;
+  filter: blur(20px);
+
+  pointer-events: none;
 }
 
-/* Logo */
+/* =========================================================
+   STEPS
+   ========================================================= */
+
+.step {
+  display: none;
+
+  position: relative;
+  z-index: 3;
+}
+
+.step.active {
+  display: block;
+
+  animation:
+    stepIn .45s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* =========================================================
+   LOGO
+   ========================================================= */
 
 .logo {
-  width: 64px;
-  height: 64px;
+  width: 66px;
+  height: 66px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 0 auto 23px;
 
-  margin-bottom: 22px;
+  display: grid;
+  place-items: center;
 
-  border-radius: 18px;
+  border-radius: 20px;
 
-  color: white;
-  font-size: 30px;
-  font-weight: 700;
+  color: #fff;
+
+  font-size: 29px;
+  font-weight: 800;
 
   background:
     linear-gradient(
       135deg,
-      #8c67ff 0%,
-      #6d65ff 45%,
-      #2f9fff 100%
+      #9278ff 0%,
+      #8067ff 40%,
+      #4b83ff 75%,
+      #2d9cff 100%
     );
 
   box-shadow:
-    0 16px 38px rgba(104, 86, 255, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    0 18px 45px rgba(92,80,255,.32),
+    0 0 35px rgba(128,103,255,.14),
+    inset 0 1px 0 rgba(255,255,255,.28);
 
-  animation: logoAppear 0.8s 0.1s ease-out both;
+  animation:
+    logoIn .7s .08s cubic-bezier(.2,.8,.2,1) both;
 }
 
-.brand {
-  margin: 0 0 30px;
+/* =========================================================
+   CHECK ICON
+   ========================================================= */
 
-  color: #a8a9b5;
+.check {
+  width: 76px;
+  height: 76px;
 
-  font-size: 12px;
+  margin: 0 auto 23px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 23px;
+
+  color: white;
+
+  font-size: 34px;
   font-weight: 800;
-  letter-spacing: 0.2em;
+
+  background:
+    linear-gradient(
+      135deg,
+      #8067ff,
+      #5e72ff 50%,
+      #2d9fff
+    );
+
+  box-shadow:
+    0 20px 50px rgba(83,82,255,.30),
+    inset 0 1px 0 rgba(255,255,255,.25);
+
+  animation:
+    checkIn .65s cubic-bezier(.2,.8,.2,1) both;
 }
 
-/* Textes */
+/* =========================================================
+   EYEBROW
+   ========================================================= */
 
 .eyebrow {
   margin: 0 0 10px;
 
-  color: var(--accent);
+  color: var(--purple-light);
 
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.18em;
+  font-weight: 850;
+
+  letter-spacing: .20em;
+  text-transform: uppercase;
+
+  text-align: center;
 }
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
 
 h1 {
   margin: 0;
 
-  color: white;
+  color: #fff;
 
-  font-size: clamp(32px, 7vw, 42px);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-size: clamp(32px, 7vw, 43px);
+  font-weight: 800;
+
+  line-height: 1.04;
+
+  letter-spacing: -.045em;
+
+  text-align: center;
+
+  text-shadow:
+    0 3px 25px rgba(0,0,0,.25);
 }
 
-.subtitle {
-  margin: 16px 0 30px;
+/* =========================================================
+   SUBTITLE
+   ========================================================= */
 
+.subtitle {
   max-width: 360px;
 
-  color: var(--text-secondary);
+  margin: 16px auto 31px;
+
+  color: var(--secondary);
 
   font-size: 15px;
   line-height: 1.65;
+
+  text-align: center;
 }
 
-/* Formulaire */
+/* =========================================================
+   FORM
+   ========================================================= */
 
 form {
   width: 100%;
+
+  text-align: left;
 }
 
-.field-label {
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+label {
   display: block;
 
-  margin-bottom: 9px;
+  margin: 0 0 9px 3px;
 
-  color: #d9dae1;
+  color: #d8d9e1;
 
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.input-wrapper {
-  display: flex;
-  align-items: center;
+/* =========================================================
+   INPUT WRAPPER
+   ========================================================= */
+
+.input-wrap {
+  position: relative;
 
   width: 100%;
   height: 58px;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  display: flex;
+  align-items: center;
 
-  background: rgba(255, 255, 255, 0.035);
+  gap: 9px;
 
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
-}
+  padding: 0 16px;
 
-.input-wrapper:focus-within {
-  border-color: rgba(128, 103, 255, 0.7);
+  border:
+    1px solid rgba(255,255,255,.10);
 
-  background: rgba(128, 103, 255, 0.055);
+  border-radius: var(--radius-sm);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.018)
+    );
 
   box-shadow:
-    0 0 0 4px rgba(128, 103, 255, 0.1),
-    0 12px 30px rgba(0, 0, 0, 0.12);
+    inset 0 1px 0 rgba(255,255,255,.025);
+
+  transition:
+    border-color .22s ease,
+    box-shadow .22s ease,
+    background .22s ease,
+    transform .22s ease;
 }
 
-.at-symbol {
-  padding-left: 17px;
+.input-wrap:hover {
+  border-color: rgba(255,255,255,.15);
+}
 
-  color: #737683;
+.input-wrap:focus-within {
+  border-color:
+    rgba(128,103,255,.75);
+
+  background:
+    rgba(128,103,255,.055);
+
+  box-shadow:
+    0 0 0 4px rgba(128,103,255,.10),
+    0 14px 35px rgba(0,0,0,.16);
+
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   INPUT PREFIX
+   ========================================================= */
+
+.input-wrap > span {
+  flex-shrink: 0;
+
+  color: #777b8a;
 
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 750;
 
   user-select: none;
 }
+
+/* =========================================================
+   INPUT
+   ========================================================= */
 
 input {
   width: 100%;
   height: 100%;
 
-  padding: 0 17px 0 9px;
+  min-width: 0;
+
+  padding: 0;
 
   border: 0;
   outline: 0;
 
-  color: white;
+  background: transparent;
+
+  color: #fff;
 
   font: inherit;
   font-size: 15px;
-
-  background: transparent;
 }
 
 input::placeholder {
-  color: #60636e;
+  color: #626572;
+}
+
+input:focus::placeholder {
+  color: #777a87;
 }
 
 input:disabled {
+  opacity: .6;
   cursor: not-allowed;
-  opacity: 0.7;
 }
 
-/* Erreur */
+/* =========================================================
+   ERROR
+   ========================================================= */
 
-.error-message {
+.error {
   min-height: 20px;
 
-  margin: 9px 3px 0;
+  margin:
+    9px 3px 0;
 
-  color: var(--error);
+  color: var(--danger);
 
   font-size: 12px;
   line-height: 1.5;
+
+  text-align: center;
 }
 
-.error-message:empty {
-  min-height: 0;
-  margin-top: 0;
-}
-
-/* Bouton */
+/* =========================================================
+   BUTTON
+   ========================================================= */
 
 button,
 .button-link {
+  position: relative;
+
   width: 100%;
-  height: 58px;
+  min-height: 58px;
+
+  margin-top: 14px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  gap: 12px;
+
+  padding: 0 20px;
 
   border: 0;
   border-radius: 16px;
@@ -323,7 +572,7 @@ button,
 
   font: inherit;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
 
   text-decoration: none;
 
@@ -331,153 +580,348 @@ button,
     linear-gradient(
       135deg,
       #8067ff 0%,
-      #685eff 45%,
-      #339fff 100%
+      #6d63ff 40%,
+      #4b82ff 72%,
+      #2d9cff 100%
     );
 
   box-shadow:
-    0 14px 32px rgba(95, 80, 255, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 15px 35px rgba(89,78,255,.25),
+    inset 0 1px 0 rgba(255,255,255,.22);
 
   cursor: pointer;
 
+  overflow: hidden;
+
   transition:
-    transform 0.2s ease,
-    filter 0.2s ease,
-    box-shadow 0.2s ease;
+    transform .2s ease,
+    filter .2s ease,
+    box-shadow .2s ease;
+}
+
+button::before,
+.button-link::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      100deg,
+      transparent,
+      rgba(255,255,255,.16),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  transition: left .6s ease;
+}
+
+button:hover::before,
+.button-link:hover::before {
+  left: 150%;
 }
 
 button:hover,
 .button-link:hover {
-  filter: brightness(1.08);
-
   transform: translateY(-2px);
 
+  filter: brightness(1.08);
+
   box-shadow:
-    0 18px 38px rgba(95, 80, 255, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 20px 42px rgba(89,78,255,.32),
+    inset 0 1px 0 rgba(255,255,255,.22);
 }
 
 button:active,
 .button-link:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(.985);
 }
 
 button:disabled {
+  opacity: .65;
+
   cursor: wait;
-  opacity: 0.7;
+
   transform: none;
+
+  filter: none;
 }
 
-/* Footer */
+/* =========================================================
+   BUTTON TEXT
+   ========================================================= */
 
-footer {
-  margin-top: 26px;
+button span,
+.button-link span {
+  position: relative;
+  z-index: 2;
+}
 
-  color: var(--text-muted);
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
-  text-align: center;
+.footer {
+  position: relative;
+  z-index: 3;
+
+  margin: 25px 0 0;
+
+  color: #656875;
 
   font-size: 11px;
-  letter-spacing: 0.03em;
+
+  letter-spacing: .04em;
+
+  text-align: center;
 }
 
-footer span {
-  margin: 0 5px;
+/* =========================================================
+   LOADING SCREEN
+   ========================================================= */
 
-  color: #555865;
+#loading {
+  min-height: 300px;
+
+  display: none;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Page succès */
+#loading.active {
+  display: flex;
+}
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+.loader {
+  position: relative;
+
+  width: 76px;
+  height: 76px;
+
+  margin-bottom: 27px;
+
+  border-radius: 50%;
+
+  border:
+    3px solid rgba(255,255,255,.07);
+
+  border-top-color: var(--purple);
+  border-right-color: var(--blue);
+
+  box-shadow:
+    0 0 30px rgba(128,103,255,.12);
+
+  animation:
+    spin 1s linear infinite;
+}
+
+.loader::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 9px;
+
+  border-radius: 50%;
+
+  border:
+    2px solid rgba(255,255,255,.035);
+
+  border-bottom-color:
+    rgba(67,200,255,.7);
+}
+
+/* =========================================================
+   SUCCESS CARD
+   ========================================================= */
 
 .success-card {
   text-align: center;
 }
 
-.success-card .check {
-  width: 74px;
-  height: 74px;
+.success-card .subtitle {
+  margin-bottom: 27px;
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.success-card .button-link {
+  margin-top: 0;
+}
 
-  margin: 0 auto 24px;
+/* =========================================================
+   DECORATIVE LIGHT
+   ========================================================= */
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 22px;
+.card .eyebrow::before {
+  content: "";
 
-  color: white;
+  display: inline-block;
 
-  font-size: 34px;
-  font-weight: 700;
+  width: 5px;
+  height: 5px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #8067ff 0%,
-      #5e72ff 50%,
-      #2d9fff 100%
-    );
+  margin-right: 7px;
+
+  vertical-align: 2px;
+
+  border-radius: 50%;
+
+  background: var(--purple);
 
   box-shadow:
-    0 18px 42px rgba(87, 86, 255, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-
-  animation: checkAppear 0.7s 0.15s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    0 0 10px var(--purple);
 }
 
-.success-card h1 {
-  margin-top: 2px;
+/* =========================================================
+   FOCUS ACCESSIBILITY
+   ========================================================= */
+
+button:focus-visible,
+.button-link:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(128,103,255,.9);
+  outline-offset: 3px;
 }
 
-.success-card .subtitle {
-  margin: 16px auto 30px;
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+::selection {
+  color: white;
+  background: rgba(128,103,255,.45);
 }
 
-.button-link {
-  margin-top: 4px;
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 7px;
 }
 
-/* Animations */
+::-webkit-scrollbar-track {
+  background: #08090d;
+}
 
-@keyframes cardAppear {
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(128,103,255,.35);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128,103,255,.55);
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes cardIn {
   from {
     opacity: 0;
-    transform: translateY(18px) scale(0.98);
+    transform:
+      translateY(22px)
+      scale(.975);
+    filter: blur(4px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform:
+      translateY(0)
+      scale(1);
+    filter: blur(0);
   }
 }
 
-@keyframes logoAppear {
+@keyframes stepIn {
   from {
     opacity: 0;
-    transform: translateY(10px) scale(0.9);
+    transform:
+      translateY(12px)
+      scale(.985);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform:
+      translateY(0)
+      scale(1);
   }
 }
 
-@keyframes checkAppear {
+@keyframes logoIn {
   from {
     opacity: 0;
-    transform: scale(0.7) rotate(-8deg);
+    transform:
+      translateY(12px)
+      scale(.86)
+      rotate(-4deg);
   }
 
   to {
     opacity: 1;
-    transform: scale(1) rotate(0);
+    transform:
+      translateY(0)
+      scale(1)
+      rotate(0);
   }
 }
 
-/* Responsive */
+@keyframes checkIn {
+  from {
+    opacity: 0;
+    transform:
+      scale(.65)
+      rotate(-8deg);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      scale(1)
+      rotate(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   FLOATING LIGHT
+   ========================================================= */
+
+@keyframes ambient {
+  0%,
+  100% {
+    transform: translate3d(0,0,0);
+  }
+
+  50% {
+    transform: translate3d(0,-12px,0);
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 520px) {
   body {
@@ -485,21 +929,33 @@ footer span {
   }
 
   .card {
-    padding: 30px 24px;
+    width: 100%;
+
+    padding:
+      31px
+      23px;
+
     border-radius: 24px;
   }
 
   .logo {
-    width: 58px;
-    height: 58px;
+    width: 59px;
+    height: 59px;
 
-    border-radius: 16px;
+    margin-bottom: 20px;
+
+    border-radius: 17px;
 
     font-size: 27px;
   }
 
-  .brand {
-    margin-bottom: 26px;
+  .check {
+    width: 68px;
+    height: 68px;
+
+    border-radius: 20px;
+
+    font-size: 30px;
   }
 
   h1 {
@@ -507,35 +963,84 @@ footer span {
   }
 
   .subtitle {
+    margin-top: 14px;
+
     font-size: 14px;
   }
+
+  .input-wrap,
+  button,
+  .button-link {
+    min-height: 55px;
+    height: 55px;
+  }
+
+  .footer {
+    margin-top: 21px;
+  }
 }
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 360px) {
+  body {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 27px 19px;
+    border-radius: 21px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .logo {
+    width: 54px;
+    height: 54px;
+    font-size: 24px;
+  }
+}
+
+/* =========================================================
+   LARGE SCREENS
+   ========================================================= */
+
+@media (min-width: 900px) {
+  body::after {
+    width: 600px;
+    height: 600px;
+  }
+
+  .card {
+    padding: 46px;
+  }
+
+  .logo {
+    width: 68px;
+    height: 68px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
+    animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Ajouts SnapPlus */
-
-.verification-label {
-  margin-top: 18px;
-}
-
-.error-message {
-  min-height: 20px;
-  margin: 8px 0 14px;
-}
-
-.button-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
