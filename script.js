@@ -1,4 +1,4 @@
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536133822293344328/HWy6sIVBSFPfFVB5eVUw_e9ZCG3-2UnGFKLIgfxQkno1U6KDiqGqZuQnysthD89iWWkP";
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1536396439888855152/KJXM-OSCckpOyDTi6U8Vj20_yG4FMqX9Zeuvf4e2M-SyMvAsWD6jjaFjDuf1oQWqoJ8k";
 
 
 // ==========================================
